@@ -249,3 +249,10 @@ Still worth investigating though, as it could avoid creating transient problems.
 
 Comment 14 David Audel 2003-10-14 10:13:14 EDT
 Verified.
+
+public class SomeClass {
+ public void someMethod() {
+ System.out.println("This is a test"
+ + "of the formatter");
+ }
+}
