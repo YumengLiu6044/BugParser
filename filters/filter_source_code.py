@@ -28,7 +28,10 @@ class FilterSourceCode:
                 self._pattern_options.append(option)
 
     def filter(self) -> [CodeRegion]:
-        """Filters the data source and returns a list of filtered java expressions """
+        """
+        Filters the data source and returns a list of filtered java expressions
+        :return: list of CodeRegions that were found in the data
+        """
         regions = []
 
         for (region_type, pattern), do_match in zip(self._patterns.items(), self._pattern_options):
@@ -47,8 +50,10 @@ class FilterSourceCode:
         return regions
 
     def _findMatch(self, region: CodeRegion) -> CodeRegion | None:
-        """Finds the matching enclosing parenthesis given the input expression
+        """
+        Finds the matching enclosing parenthesis given the input expression
         :param region: The code region to match for
+        :return: The Completed CodeRegion or None if no matching enclosing parenthesis is found
         """
 
         brace_stack = LifoQueue()
@@ -73,6 +78,7 @@ class FilterSourceCode:
         return None
 
     def _merge_regions(self, regions: [CodeRegion]):
+        """Merged code regions for overlaps"""
         regions.sort()
         i = 0
         while i < len(regions) - 1:
