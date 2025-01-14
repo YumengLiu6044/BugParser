@@ -1,0 +1,11 @@
+import,(?m)^\s*import.*;$
+package,(?m)^package.*;$
+singlecomment,(?m)^\s*//.*[\n\r]
+multicomment,(?m)(?s)^\s*(/\*).*?(\*/)
+class,(?m)^.*?class.*?([\n\r])?\{,MATCH
+assignment,(?m)^.*=.*;$
+ifstatement,(?m)^.*?if\s*\(.*?\)\s*\{,MATCH
+ifstatementnomatch,(?m)^.*?if\s*\(.*?\)\s*
+elsestatement,(?m)^.*?else\s*\{,MATCH
+functiondef,(?m)^.*?([a-zA-Z_][a-zA-Z0-9_\$])+(\.[a-zA-Z0-9_\$]+)*\s*\(.*?\).*?([\n\r])?\{,MATCH
+functioncall,(?m)^.*\(.*?\).*?;$
