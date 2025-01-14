@@ -96,13 +96,4 @@ class FilterSourceCode:
                 i += 1
 
 
-if __name__ == "__main__":
-    with open("../demo/demo_report.txt", "r") as file:
-        content = file.read()
-        source_code_filter = FilterSourceCode(content)
-        results = source_code_filter.filter()
-        results.sort()
-        print(results)
-
-
 __all__ = ["FilterSourceCode"]
