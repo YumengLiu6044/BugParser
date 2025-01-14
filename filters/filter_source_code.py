@@ -43,6 +43,7 @@ class FilterSourceCode:
 
                 regions.append(region)
 
+        self._merge_regions(regions)
         return regions
 
     def _findMatch(self, region: CodeRegion) -> CodeRegion | None:
@@ -71,8 +72,29 @@ class FilterSourceCode:
 
         return None
 
-    def _merge_regions(self) -> [CodeRegion]:
-        ...
+    def _merge_regions(self, regions: [CodeRegion]):
+        regions.sort()
+        i = 0
+        while i < len(regions) - 1:
+            lhs = regions[i]
+            rhs = regions[i + 1]
+            if lhs.overlaps(rhs):
+                merged_span = (
+                    min(lhs.span[0], rhs.span[0]),
+                    max(lhs.span[1], rhs.span[1])
+                )
+                merged_code = self._data[merged_span[0]:merged_span[1]]
+                merged_region = CodeRegion(
+                    lhs.type,
+                    merged_span,
+                    merged_code
+                )
+                regions[i] = merged_region
+                del regions[i + 1]
+
+            else:
+                i += 1
+
 
 
 if __name__ == "__main__":

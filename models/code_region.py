@@ -34,5 +34,8 @@ class CodeRegion:
     def __lt__(self, other):
         return self.span[0] < other.span[0]
 
+    def overlaps(self, other):
+        return max(self.span[0], other.span[0]) <= min(self.span[1], other.span[1])
+
 
 __all__ = ["CodeRegion"]
