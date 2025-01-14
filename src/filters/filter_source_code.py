@@ -1,17 +1,17 @@
 import os
 import re
-from models import CodeRegion
+from src.models import CodeRegion
 from queue import LifoQueue
 
 
-class FilterSourceCode:
+class SourceCodeFilter:
     """A class that parses code from a given string"""
 
     def __init__(self, data_source: str):
         self._data = data_source
         self._patterns: {str: re.Pattern} = {}
         self._pattern_options = []
-        self._resource_path = os.path.join("..", "resources", "Java_CodeDB.txt")
+        self._resource_path = os.path.join("../..", "resources", "Java_CodeDB.txt")
 
         self._loadRegEx()
 
@@ -101,4 +101,10 @@ class FilterSourceCode:
                 i += 1
 
 
-__all__ = ["FilterSourceCode"]
+if __name__ == "__main__":
+    with open("../../demo/demo_report.txt", "r") as file:
+        filter = SourceCodeFilter(file.read())
+        print(filter.filter())
+
+
+__all__ = ["SourceCodeFilter"]
