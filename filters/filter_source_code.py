@@ -65,7 +65,7 @@ class FilterSourceCode:
                 matched_region = CodeRegion(
                     region_type=region.type,
                     span=(original_span[0], original_span[1]+index+1),
-                    source_code=self._data[original_span[0]:original_span[1]+index+1]
+                    source_code=region.source_code + search_region[:index+1]
                 )
                 return matched_region
 
