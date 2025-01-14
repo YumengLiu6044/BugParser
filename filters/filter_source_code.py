@@ -96,7 +96,6 @@ class FilterSourceCode:
                 i += 1
 
 
-
 if __name__ == "__main__":
     with open("../demo/demo_report.txt", "r") as file:
         content = file.read()
