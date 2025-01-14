@@ -2,6 +2,7 @@ import os
 import re
 from src.models import CodeRegion
 from queue import LifoQueue
+from util import filter_text
 
 
 class SourceCodeFilter:
@@ -14,6 +15,7 @@ class SourceCodeFilter:
         self._resource_path = os.path.join("../..", "resources", "Java_CodeDB.txt")
 
         self._loadRegEx()
+        self._code_regions: [CodeRegion] = []
 
     def _loadRegEx(self):
         """Loads regex expressions from text file"""
@@ -27,12 +29,12 @@ class SourceCodeFilter:
                 option = True if len(parts) == 3 else False
                 self._pattern_options.append(option)
 
-    def filter(self) -> [CodeRegion]:
+    def filter(self) -> str:
         """
         Filters the data source and returns a list of filtered java expressions
-        :return: list of filtered java expressions represented as CodeRegion objects
+        :return: Filtered bug reports that excludes code snippets
         """
-        regions = []
+        regions: [CodeRegion] = []
 
         for (region_type, pattern), do_match in zip(self._patterns.items(), self._pattern_options):
             for match in re.finditer(pattern, self._data):
@@ -47,7 +49,11 @@ class SourceCodeFilter:
                 regions.append(region)
 
         self._merge_regions(regions)
-        return regions
+        self._code_regions = regions
+
+        # Returns filtered bug report
+        removal_ranges = [code_region.span for code_region in self._code_regions]
+        return filter_text(removal_ranges, self._data)
 
     def _findMatch(self, region: CodeRegion) -> CodeRegion | None:
         """
