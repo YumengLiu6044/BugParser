@@ -28,5 +28,11 @@ class CodeRegion:
         output += f"Source code: {self._source_code}\n"
         return output
 
+    def __le__(self, other):
+        return self.span[0] <= other.span[0]
+
+    def __lt__(self, other):
+        return self.span[0] < other.span[0]
+
 
 __all__ = ["CodeRegion"]

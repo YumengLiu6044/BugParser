@@ -1,6 +1,7 @@
 import os
 import re
 from models import CodeRegion
+from queue import LifoQueue
 
 
 class FilterSourceCode:
@@ -48,7 +49,27 @@ class FilterSourceCode:
         """Finds the matching enclosing parenthesis given the input expression
         :param region: The code region to match for
         """
-        ...
+
+        brace_stack = LifoQueue()
+        brace_stack.put("{")
+        original_span = region.span
+        search_region = self._data[original_span[1]:]
+        for index, char in enumerate(search_region):
+            if char == "}":
+                brace_stack.get()
+
+            elif char == "{":
+                brace_stack.put(char)
+
+            if brace_stack.empty():
+                matched_region = CodeRegion(
+                    region_type=region.type,
+                    span=(original_span[0], original_span[1]+index+1),
+                    source_code=self._data[original_span[0]:original_span[1]+index+1]
+                )
+                return matched_region
+
+        return None
 
     def _merge_regions(self) -> [CodeRegion]:
         ...
@@ -57,8 +78,10 @@ class FilterSourceCode:
 if __name__ == "__main__":
     with open("../demo/demo_report.txt", "r") as file:
         content = file.read()
-
         source_code_filter = FilterSourceCode(content)
-        print(source_code_filter.filter())
+        results = source_code_filter.filter()
+        results.sort()
+        print(results)
+
 
 __all__ = ["FilterSourceCode"]
