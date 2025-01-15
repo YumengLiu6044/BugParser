@@ -277,3 +277,10 @@ This is comments // Some comments
  else {
     System.out.println("The name length is not exactly 6");
  }
+
+for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < i; i++) {
+        System.out.print("*");
+    }
+    System.out.print("\n");
+ }
