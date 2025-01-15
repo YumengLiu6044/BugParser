@@ -259,3 +259,21 @@ public class SomeClass {
 Yep just to make sure
 import this import helo.world
 Here is a package statement: package org.java.jb; just to be sure
+another one: package this_.whatamI_doing.hi
+
+This is comments // Some comments
+/* more comments
+   this is included too */
+
+ Here is some function definition public static String sayMyName(String name) {
+    System.out.println(name);
+    return name.length();
+ }
+
+ Here is a complete if else statement: if (name.length() == 6) {
+    System.out.println("The name length is exactly 6");
+
+ }
+ else {
+    System.out.println("The name length is not exactly 6");
+ }
