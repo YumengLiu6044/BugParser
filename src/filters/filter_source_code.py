@@ -17,6 +17,10 @@ class SourceCodeFilter:
         self._loadRegEx()
         self._code_regions: [CodeRegion] = []
 
+    @property
+    def code_regions(self) -> [CodeRegion]:
+        return self._code_regions
+
     def _loadRegEx(self):
         """Loads regex expressions from text file"""
         with open(self._resource_path, "r") as file:
@@ -110,7 +114,8 @@ class SourceCodeFilter:
 if __name__ == "__main__":
     with open("../../demo/demo_report.txt", "r") as file:
         filter = SourceCodeFilter(file.read())
-        print(filter.filter())
+        filter.filter()
+        print(filter.code_regions)
 
 
 __all__ = ["SourceCodeFilter"]

@@ -257,3 +257,5 @@ public class SomeClass {
  }
 }
 Yep just to make sure
+import this import helo.world
+Here is a package statement: package org.java.jb; just to be sure
