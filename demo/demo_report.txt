@@ -260,6 +260,7 @@ Yep just to make sure
 import this import helo.world
 Here is a package statement: package org.java.jb; just to be sure
 another one: package this_.whatamI_doing.hi
+here is another import statement: import java.util.*;
 
 This is comments // Some comments
 /* more comments

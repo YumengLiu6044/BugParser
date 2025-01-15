@@ -1,4 +1,4 @@
-import,(?m)import\s+[\w_]+(\.[\w_]+)+;?
+import,(?m)import\s+[\w_]+(\.[\w_*]+)+;?
 package,(?m)package\s+[\w_]+(\.[\w_]+)+;?
 singlecomment,(?m)//.*[\n\r]
 multicomment,(?m)(?s)^\s*(/\*).*?(\*/)
